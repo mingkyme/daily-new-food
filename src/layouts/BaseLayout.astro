@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '오늘의 신상 식품',
+  description = '편의점과 식품업계의 새로운 출시 소식을 매일 정리합니다.',
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const home = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" href={`${home}favicon.svg`} />
+    <link rel="alternate" type="application/rss+xml" title="오늘의 신상 식품 RSS" href={`${home}rss.xml`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={home} aria-label="오늘의 신상 식품 홈">
+        <span class="brand-mark">NEW</span>
+        <span>오늘의 신상 식품</span>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href={home}>최신 소식</a>
+        <a href={`${home}rss.xml`}>RSS</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>매일 확인한 신상 식품 소식을 출처와 함께 정리합니다.</p>
+      <p>© {new Date().getFullYear()} 오늘의 신상 식품</p>
+    </footer>
+  </body>
+</html>
