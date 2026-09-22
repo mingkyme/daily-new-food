@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://mingkyme.github.io',
-  base: '/daily-new-food',
+  site: 'https://food.mingky.me',
   trailingSlash: 'always',
 });

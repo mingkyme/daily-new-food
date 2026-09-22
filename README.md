@@ -32,6 +32,8 @@ draft: false
 
 `main` 브랜치에 푸시하면 `.github/workflows/deploy.yml`이 GitHub Pages로 자동 배포합니다.
 
-GitHub 저장소의 **Settings → Pages → Source**를 **GitHub Actions**로 설정해야 합니다.
+GitHub 저장소의 **Settings → Pages → Source**는 **GitHub Actions**를 사용합니다.
 
-기본 URL: `https://mingkyme.github.io/daily-new-food/`
+공개 URL: `https://food.mingky.me/`
+
+커스텀 도메인은 `public/CNAME`과 GitHub Pages 설정 양쪽에 `food.mingky.me`로 지정합니다.
