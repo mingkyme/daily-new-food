@@ -3,11 +3,15 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('news', ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const posts = (await getCollection('news', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: { post, previous: posts[index + 1], next: posts[index - 1] },
+  }));
 }
 
-const { post } = Astro.props;
+const { post, previous, next } = Astro.props;
 const { Content, headings } = await render(post);
 const home = import.meta.env.BASE_URL;
 const published = new Intl.DateTimeFormat('ko-KR', {
@@ -43,5 +47,18 @@ const published = new Intl.DateTimeFormat('ko-KR', {
         </aside>
       )}
     </div>
+    <nav class="briefing-nav" aria-label="브리핑 이동">
+      <div class="briefing-neighbors">
+        {previous && <a href={`${home}news/${previous.id}/`} rel="prev">
+          <span>← 이전 브리핑</span>
+          <strong>{previous.data.title}</strong>
+        </a>}
+        {next && <a href={`${home}news/${next.id}/`} rel="next">
+          <span>다음 브리핑 →</span>
+          <strong>{next.data.title}</strong>
+        </a>}
+      </div>
+      <a class="all-news" href={home}>전체 소식 보기 →</a>
+    </nav>
   </article>
 </BaseLayout>
