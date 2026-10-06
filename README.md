@@ -32,9 +32,14 @@ draft: false
 
 출처 링크는 목적지를 구분해 표기합니다. 언론 기사는 `출처: 언론 기사 · [기사 보기](URL)`, 확인된 공식 보도자료는 `출처: 공식 보도자료 · [보도자료 보기](URL)`, 브랜드 전체 메뉴는 `참고: 공식 메뉴 · [공식 메뉴 보기](URL)`로 적습니다. 전체 메뉴는 개별 출시 근거가 아니므로 그 한계를 함께 밝힙니다.
 
+## 조사 완료 검사
+
+조사·추출·실패 복구 규칙은 [조사 워크플로](docs/research-workflow.md)를 따른다. 자동 발행은 실행별 브라우저 증거와 `coverage.json`을 저장하고, `python3 scripts/research_gate.py /이번실행/coverage.json --date YYYY-MM-DD`가 성공한 뒤 빌드한다. 누락된 브랜드·카테고리·직접 출처 확인 또는 빈 DOM 추출을 완료로 처리하지 않는다.
+
 ## 검증
 
 ```bash
+python3 -m unittest discover -s scripts -p 'test_*.py' -v
 node --experimental-strip-types --test src/lib/briefings.test.mjs
 npm run astro -- check
 npm run build
