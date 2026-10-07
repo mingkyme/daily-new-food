@@ -34,7 +34,7 @@ draft: false
 
 ## 조사 완료 검사
 
-조사·추출·실패 복구 규칙은 [조사 워크플로](docs/research-workflow.md)를 따른다. 자동 발행은 실행별 브라우저 증거와 `coverage.json`을 저장하고, `python3 scripts/research_gate.py /이번실행/coverage.json --date YYYY-MM-DD`가 성공한 뒤 빌드한다. 누락된 브랜드·카테고리·직접 출처 확인 또는 빈 DOM 추출을 완료로 처리하지 않는다.
+조사·추출·실패 복구 규칙은 [조사 워크플로](docs/research-workflow.md)를 따른다. ego-browser만 사용해 실행별 페이지 증거와 `coverage.json`을 저장하고, `python3 scripts/research_gate.py /이번실행/coverage.json --date YYYY-MM-DD`가 성공한 뒤 빌드한다. 16개 독립 검색·7개 출처 시도·3개 전문 매체 정상 목록과 비어 있지 않은 개별 원문 검증이 필수다. 공식 목록 실패는 오류 이유·최초/홈페이지 복구 증거와 해당 브랜드의 검증 원문을 참조하는 명시적 `alternative_source` 모드로만 보완한다(독립 빈 검색은 별도 제한 모드). 대안 통과 시에도 `warnings`의 미확인 범위를 보고하며 전체 조사 완료·신상 없음으로 표현하지 않는다. 오류 페이지·메뉴 링크·빈 DOM 추출은 완료 증거가 아니다.
 
 ## 검증
 
