@@ -40,10 +40,14 @@ draft: false
 
 ```bash
 python3 -m unittest discover -s scripts -p 'test_*.py' -v
-node --experimental-strip-types --test src/lib/briefings.test.mjs
+node --experimental-strip-types --test src/lib/*.test.mjs
 npm run astro -- check
 npm run build
 ```
+
+## 선택적 Microsoft Clarity
+
+Project ID 미설정 시 완전히 비활성입니다. 실제 활성화에는 운영자가 생성한 프로젝트 ID와 방문자의 Clarity 분석 허용이 모두 필요합니다. [설정·동의·검증 안내](docs/clarity.md)를 참고하세요. 기존 Google Analytics의 동작은 변경하지 않습니다.
 
 ## 배포
 

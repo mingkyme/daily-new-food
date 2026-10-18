@@ -1,0 +1,32 @@
+---
+import client from '../lib/clarity-client.js?raw';
+const projectId = import.meta.env.PUBLIC_CLARITY_PROJECT_ID || '';
+// Reject malformed values rather than normalizing a supplied identifier.
+const enabled = /^[a-z0-9]+$/.test(projectId);
+---
+<section aria-label="분석 및 개인정보 안내" data-nosnippet>
+  <details>
+    <summary>분석 및 개인정보 안내 · Clarity 설정</summary>
+    <p>이 사이트는 방문 통계를 위해 Google Analytics를 사용합니다. 아래 선택은 Microsoft Clarity에만 적용되며 Google Analytics 설정을 변경하지 않습니다.</p>
+    {enabled ? (
+      <div data-clarity-project-id={projectId}>
+        <p>선택적 Microsoft Clarity 분석은 허용한 경우에만 로드됩니다. 클릭·스크롤 등 이용 행동, 페이지 주소 및 세션 재생 데이터를 Microsoft에 전송하며 분석 쿠키를 사용할 수 있습니다. 광고 목적 동의는 전달하지 않습니다.</p>
+        <p>페이지 본문과 입력 내용은 마스킹하며 이름·이메일 등 별도 사용자 식별 정보를 보내지 않습니다. 마스킹은 주소 등 모든 메타데이터를 숨기는 기능은 아닙니다.</p>
+        <p>선택은 이 브라우저에 최대 180일 저장합니다. 언제든 여기서 거부·철회할 수 있습니다. 이미 로드된 경우 철회 시 페이지를 새로고침하여 수집 스크립트를 종료합니다. 이미 전송된 데이터는 소급 삭제되지 않습니다.</p>
+        <p><a href="https://privacy.microsoft.com/privacystatement" rel="noreferrer">Microsoft 개인정보처리방침</a></p>
+        <button type="button" data-clarity-grant>Clarity 분석 허용</button>
+        <button type="button" data-clarity-deny>Clarity 분석 거부·철회</button>
+        <p role="status" aria-live="polite">선택 전에는 Clarity가 로드되지 않습니다.</p>
+        <noscript>JavaScript가 꺼져 있어 Clarity는 로드되지 않습니다.</noscript>
+      </div>
+    ) : (
+      <p data-clarity-disabled>Microsoft Clarity는 현재 비활성 상태입니다. 프로젝트 ID가 설정되지 않았거나 유효하지 않아 Clarity 스크립트·쿠키·수집 요청이 생성되지 않습니다.</p>
+    )}
+  </details>
+</section>
+{enabled && <script is:inline set:html={client} />}
+<style>
+  section { margin-top: 1rem; }
+  summary { cursor: pointer; }
+  button { margin: .25rem; padding: .5rem .75rem; cursor: pointer; }
+</style>
